@@ -19,9 +19,7 @@ void setup() {
 void loop() {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
-    
-    // Permite ignorar a verificação do certificado SSL (não recomendado para produção)
-    http.begin(serverName, ""); 
+    http.begin(serverName);  
 
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
