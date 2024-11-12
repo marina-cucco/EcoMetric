@@ -3,7 +3,7 @@
 
 const char* ssid = "Wokwi-GUEST";  
 const char* password = "";          
-const char* serverName = "url do ngrok";
+const char* serverName = "http://be57-2804-14c-62-2473-348e-104f-aaee-226f.ngrok-free.app/consumo";
 
 void setup() {
   Serial.begin(115200);
