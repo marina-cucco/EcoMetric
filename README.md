@@ -43,10 +43,10 @@ O código foi implementado na Arduino IDE e consiste em:
 
 ### Widgets Utilizados
 
-1. **Gauge**: Exibe o consumo diário em kWh.
-2. **Time Series Chart**: Mostra o consumo acumulado mensal, incluindo o consumo atual e as projeções para energias renováveis.
-3. **Progressbar**: Exibe os valores de consumo diário e as projeções para energia solar e eólica.
-4. **Text/Value**: Explicação dos cálculos e interpretação dos gráficos.
+1. **Gauge**: Exibe o consumo diário em kWh, e é utilizado principalmente por representar o consumo diário por meio da variação de cores entre verde e vermelho. Se configura como uma alternativa rápida e intuitiva para o cliente ter uma noção do seu consumo em momentos em que a análise aprofundada não é interessante ou viável em dado momento.
+2. **Time Series Chart**: Mostra o consumo acumulado mensal, incluindo o consumo atual e as projeções para energias renováveis, com comparações que informam uma predição baseada em cálculos entre a enrgia atual e outras energias renováveis.
+3. **Progressbar**: Exibe os valores de consumo diário e as projeções para energia solar e eólica, dessa vez focando no consumo diário.
+4. **Text/Value**: Explicação dos cálculos e como interpretar os gráficos.
 
 ### Interpretação dos Dados
 
