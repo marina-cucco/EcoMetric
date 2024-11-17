@@ -1,46 +1,56 @@
-#include <WiFi.h>
-#include <HTTPClient.h>
+#include <ThingerESP32.h>
 
-const char* ssid = "Wokwi-GUEST";  
-const char* password = "";          
-const char* serverName = "http://be57-2804-14c-62-2473-348e-104f-aaee-226f.ngrok-free.app/consumo";
+#define USERNAME "marinacucco"           
+#define DEVICE_ID "ecometric-id"         
+#define DEVICE_CREDENTIAL "ecometric-cred"  
 
-void setup() {
-  Serial.begin(115200);
-  WiFi.begin(ssid, password);
+#define SSID "seu_wifi"
+#define SSID_PASSWORD "senha_wifi" 
 
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.println("Conectando ao WiFi...");
-  }
-  Serial.println("Conectado ao WiFi!");
+ThingerESP32 thing(USERNAME, DEVICE_ID, DEVICE_CREDENTIAL);
+
+int consumoDiario = 0;       
+float consumoSolar = 0;      
+float consumoEolica = 0;     
+String ID = "GS_2024";
+
+void setup() {  
+  Serial.begin(115200);  
+  thing.add_wifi(SSID, SSID_PASSWORD);
+  delay(500);
+
+  // Configuração para envio ao Thinger.io
+  thing["Consumo diário em kWh"] >> outputValue(consumoDiario);
+  thing["Consumo com Solar"] >> outputValue(consumoSolar);
+  thing["Consumo com Eólica"] >> outputValue(consumoEolica);
+  thing["ID"] >> outputValue(ID);
 }
 
 void loop() {
-  if (WiFi.status() == WL_CONNECTED) {
-    HTTPClient http;
-    http.begin(serverName);  
+  // Simular consumo diário com um valor que muda a cada ciclo
+  simularConsumoDiario();
 
-    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+  // Comunica com o Thinger.io
+  thing.handle();
 
-    float consumo = random(100, 500) / 10.0;
-    String postData = "consumo=" + String(consumo);
+  // Envio de dados a cada 5 segundos para testes
+   delay(5000);
+}
 
-    int httpResponseCode = http.POST(postData);
+void simularConsumoDiario(){
+  consumoDiario = random(20, 100);
+  
+  // Calcula o consumo estimado com fontes renováveis, baseado no consumo diário
+  consumoSolar = consumoDiario * 0.3;  // 30% do consumo diário para energia solar
+  consumoEolica = consumoDiario * 0.2; // 20% do consumo diário para energia eólica
 
-    if (httpResponseCode > 0) {
-      String response = http.getString();
-      Serial.print("Código HTTP: ");
-      Serial.println(httpResponseCode);
-      Serial.print("Resposta: ");
-      Serial.println(response);
-    } else {
-      Serial.print("Erro ao enviar POST: ");
-      Serial.println(httpResponseCode);
-    }
-
-    http.end();
-  }
-
-  delay(1000);  
+  // Exibe os valores no Monitor Serial para verificação
+  Serial.print("Consumo diário simulado (kWh): ");
+  Serial.println(consumoDiario);
+  
+  Serial.print("Consumo com Energia Solar (30%): ");
+  Serial.println(consumoSolar);
+  
+  Serial.print("Consumo com Energia Eólica (20%): ");
+  Serial.println(consumoEolica);
 }
