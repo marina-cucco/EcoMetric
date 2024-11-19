@@ -62,6 +62,4 @@ O **EcoMetric** oferece uma solução prática e visual para monitoramento e an�
 - **Otimização do Dashboard**: Adicionar visualizações adicionais para uma análise mais aprofundada e relatórios de economia.
 - **Alertas e Recomendações**: Implementar notificações para alertar sobre picos de consumo e fornecer sugestões de economia de energia.
 
----
 
-Esse documento fornece uma visão geral do projeto EcoMetric, abordando desde a estrutura do sistema até a interpretação dos dados no dashboard, com foco na eficiência energética e na sustentabilidade.
